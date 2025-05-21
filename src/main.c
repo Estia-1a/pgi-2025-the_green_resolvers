@@ -10,7 +10,7 @@
 #include "argsparse.h"
 
 int main(int argc, char **argv) {
-  /*To use debug mode: 
+  /*To use debug mode test: 
    - add --debug: freud.exe --debug -f images/input/image.jpeg
    or 
    - Simply run your compiled project with start button on the blue menu bar at the bottom of the VS Code window.
