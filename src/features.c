@@ -65,7 +65,7 @@ void second_line(char *source_path){
     unsigned char R, G, B;
     int width, height, channel_count;
     unsigned char *data;
-    if (read_image_data(source_path, &data, &width, &height, &channel_count) == 0) {
+    if(read_image_data(source_path, &data, &width, &height, &channel_count) == 0){
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
         return;
     }
@@ -90,8 +90,37 @@ void print_pixel(char *filename, int x, int y){
     else {
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",filename);
     }
-    
-    
 }
+
+void min_pixel(char *filename){
+    int width, height, channel_count;
+    unsigned char *data;
+    if(read_image_data(filename, &data, &width, &height, &channel_count)==0){
+        fprintf(stderr, "Erreur: impossible de lire l'image %s\n",filename);
+        return;
+    }
+    int min_sum= 256*3+1;
+    int min_x= 0, min_y= 0;
+    pixelRGB min_pixel= {0,0,0};
+
+    for(int y=0; y< height; y++){
+        for(int x= 0; x<width; x++){
+            pixelRGB pixel = get_pixel(data, width, height, x, y);
+            int sum = pixel.R + pixel.G + pixel.B;
+
+            if (sum<min_sum){
+                min_sum = sum;
+                min_x = x;
+                min_y = y;
+                min_pixel = pixel;
+            } 
+        }
+    }
+    printf("min_pixel (%d, %d): %d, %d, %d\n",min_x, min_y, min_pixel.R, min_pixel.G, min_pixel.B);
+}
+
+
+    
+
     
 
