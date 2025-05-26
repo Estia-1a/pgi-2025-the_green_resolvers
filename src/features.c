@@ -94,4 +94,40 @@ void print_pixel(char *filename, int x, int y){
     
 }
     
+void max_pixel(char *source_path){
+    unsigned char *data = NULL;
+    int width, height, channels;
 
+    if (read_image_data(source_path, &data, &width, &height, &channels) == 0){
+        fprintf(stderr, "Erreur de lecture de l'image: %s\n", source_path );
+        return;
+    }
+
+    int max_sum = -1;
+    int max_x = 0, max_y= 0;
+    unsigned char R=0, G=0, B=0;
+
+    for (int y=0; y<height; y++){
+        for(int x=0; x<width; x++){
+            int pixel_index = (y*width+x)*channels;
+            unsigned char r = data [pixel_index];
+            unsigned char g = data [pixel_index + 1];
+            unsigned char b = data [pixel_index + 2];
+
+            int sum= r + g + b;
+
+            if( sum > max_sum){
+                max_sum = sum;
+                max_x = x;
+                max_y = y;
+                R = r;
+                G = g;
+                B = b;
+
+
+            }
+        }
+    }
+
+    printf("max_pixel(%d, %d): %d, %d, %d\n", max_x, max_y, R, G, B);
+}
