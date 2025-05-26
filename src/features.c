@@ -65,22 +65,21 @@ void second_line(char *source_path){
     unsigned char R, G, B;
     int width, height, channel_count;
     unsigned char *data;
-    if (read_image_data(source_path, &data, &width, &height, &channel_count)!=0){
-        if(height<2){
-            printf("Erreur : l'image doit avoir au 2 lignes de pixel.\n");
-            return;
-        }
+    if (read_image_data(source_path, &data, &width, &height, &channel_count) == 0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+    if(height<2){
+        printf("Erreur : l'image doit avoir au 2 lignes de pixel.\n");
+        return;
+    }
         int index = width*channel_count;
         R = data[index];
         G = data[index + 1];
         B = data[index + 2];
-        printf("second_line: %d, %d, %d \n", R, G, B);
-
-    }
-    else{
-        fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
-    }
+        printf("second_line: %d, %d, %d \n", R, G, B);  
 }
+
 void print_pixel(char *filename, int x, int y){
     int n, width, height;
     unsigned char *data;
