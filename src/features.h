@@ -4,8 +4,8 @@
 
 void helloWorld();
 void dimension(char *source_path);
-void couleur_premier_pixel(char *source_path);
-void couleur_10eme_pixel(char *source_path);
-void couleur_premier_pixel_L2(char *source_path);
-void pixellisation_RVB();
+void first_pixel(char *source_path);
+void tenth_pixel(char *source_path);
+void second_line(char *source_path);
+void print_pixel();
 #endif
