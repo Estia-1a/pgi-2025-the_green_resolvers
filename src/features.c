@@ -23,6 +23,20 @@ void dimension(char *source_path){
     }
 }
 
-void couleur_premier_pixelz(){
+void couleur_premier_pixel(char *source_path){
+    unsigned char R, B, G;
+    int width, height, channel_count;
+    unsigned char *data;
+    if (read_image_data(source_path, &data, &width, &height, &channel_count)!=0){
+        R = data[0];
+        G = data[1];
+        B = data[2];
+
+        printf("la couleur du premier pixel est : %d, %d, %d \n", R, G, B);
+    }
+    else{
+        fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
+    }
+
     
 }
