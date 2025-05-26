@@ -4,6 +4,6 @@
 
 void helloWorld();
 void dimension(char *source_path);
-void couleur_premier_pixel();
-void couleur_10eme_pixel();
+void couleur_premier_pixel(char *source_path);
+void couleur_10eme_pixel(char *source_path);
 #endif

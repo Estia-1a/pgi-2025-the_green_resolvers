@@ -40,7 +40,25 @@ void couleur_premier_pixel(char *source_path){
 
     
 }
-void couleur_10eme_pixel(){
+void couleur_10eme_pixel(char *source_path){
+    unsigned char R, G, B;
+    int width, height, channel_count;
+    unsigned char *data;
+    if (read_image_data(source_path, &data, &width, &height, &channel_count)!=0){
+        if(width<10){
+            printf("Erreur : l'image doit avoir au moins 10 pixels de large.\n");
+            return;
+        }
+        int index = 9 *channel_count;
+        R = data[index];
+        G = data[index + 1];
+        B = data[index + 2];
+        printf("la couleur du dixieme pixel est : %d, %d, %d \n", R, G, B);
+
+    }
+    else{
+        fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
+    }
     
 }
 void couleur_premier_pixel_L2(){
