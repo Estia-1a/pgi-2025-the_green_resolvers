@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
   if ( strncmp( configuration.command, "couleur_10eme_pixel", 19 ) == 0 ) {
   
     
-    couleur_premier_pixel( configuration.filenames[0] );
+    couleur_10eme_pixel( configuration.filenames[0] );
   }
 
   return 0;
