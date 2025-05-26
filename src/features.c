@@ -19,7 +19,7 @@ void dimension(char *source_path){
     int width, height, channel_count;
     unsigned char *data;
     if (read_image_data(source_path, &data, &width, &height, &channel_count)!=0){
-        printf("Dimensions : %d, %d\n" , width, height);  
+        printf("dimension: %d, %d\n" , width, height);  
     }
 }
 
@@ -32,7 +32,7 @@ void couleur_premier_pixel(char *source_path){
         G = data[1];
         B = data[2];
 
-        printf("la couleur du premier pixel est : %d, %d, %d \n", R, G, B);
+        printf("first_pixel: %d, %d, %d \n", R, G, B);
     }
     else{
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
@@ -53,7 +53,7 @@ void couleur_10eme_pixel(char *source_path){
         R = data[index];
         G = data[index + 1];
         B = data[index + 2];
-        printf("la couleur du dixieme pixel est : %d, %d, %d \n", R, G, B);
+        printf("tenth_pixel: %d, %d, %d \n", R, G, B);
 
     }
     else{
@@ -65,5 +65,5 @@ void couleur_premier_pixel_L2(){
     
 }
 void pixellisation_RVB(){
-    
+
 }
