@@ -81,6 +81,6 @@ void second_line(char *source_path){
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
     }
 }
-void pixellisation_RVB(){
+void print_pixel(){
 
 }
