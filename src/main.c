@@ -41,5 +41,11 @@ int main(int argc, char **argv) {
     dimension( configuration.filenames[0] );
   }
 
+  if ( strncmp( configuration.command, "couleur_premier_pixel", 22 ) == 0 ) {
+  
+    
+    couleur_premier_pixel( configuration.filenames[0] );
+  }
+
   return 0;
 }

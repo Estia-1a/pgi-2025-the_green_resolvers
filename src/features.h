@@ -4,5 +4,5 @@
 
 void helloWorld();
 void dimension(char *source_path);
-
+void couleur_premier_pixel();
 #endif
