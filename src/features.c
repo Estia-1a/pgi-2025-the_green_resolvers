@@ -81,18 +81,18 @@ void second_line(char *source_path){
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
     }
 }
-void print_pixel(char *filename, x, y){
-    int x, y, n, width, height;
+void print_pixel(char *filename, int x, int y){
+    int n, width, height;
     unsigned char *data;
     if (read_image_data(filename, &data, &width, &height, &n)!=0){
+        pixelRGB pixel = get_pixel(data,width,height,x,y);
+        printf("print_pixel(%d, %d):%d,%d,%d\n", x, y, pixel.R, pixel.G, pixel.B);
+    }
+    else {
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",filename);
-        return;
     }
-    pixelRGB* pixel =get_pixel(data, width, height, n, x, y);
-    if(pixel==NULL){
-        fprintf(stderr, "Erreur: pixel hors limite ou image invalide.\n");
-        return;
-    }
-    printf("print_pixel(%d, %d):%d,%d,%d\n", x, y, pixel.R, pixel.G, pixel.B)
-
+    
+    
 }
+    
+
