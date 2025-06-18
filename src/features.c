@@ -495,3 +495,33 @@ void mirror_vertical( char *filename) {
 
     write_image_data ("image_out.bmp", data, width, height);
 }
+
+void mirror_horizontal(char *filename) {
+    unsigned char *data;
+    int width, height, channels;
+
+    if (read_image_data(filename, &data, &width, &height, &channels)== 0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return;
+    }
+    unsigned char *mirrored = malloc(width* height *channels);
+    if (!mirrored){
+        fprintf(stderr, "Erreur : mémoire insuffisante.\n");
+        free(data);
+        return;
+    }
+
+    for (int y= 0; y <height; y++) {
+        for (int x =0; x <width;x++) {
+            int src_index = (y * width +x) *channels;
+            int dst_index = (y *width+ (width -1 - x)) * channels ;
+
+            for (int c= 0; c< channels ;c++) {
+                mirrored[dst_index + c] = data[src_index + c];
+            }
+        }
+    }
+    write_image_data("image_out.bmp", mirrored, width, height);
+    free(data);
+    free(mirrored);
+}

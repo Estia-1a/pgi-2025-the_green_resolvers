@@ -120,10 +120,15 @@ int main(int argc, char **argv) {
   if ( strncmp (configuration.command, "color_desaturate", 17) == 0) {
     color_desaturate ( configuration.filenames[0]);
   }
+  
   if (strncmp(configuration.command, "mirror_total", 12)==0) {
     mirror_total(configuration.filenames[0]);
   }
   if (strncmp (configuration.command, "mirror_vertical", 15) == 0) {
     mirror_vertical(configuration.filenames[0]);
   }
+
+  if (strncmp(configuration.command, "mirror_horizontal", 17) == 0) {
+    mirror_horizontal(configuration.filenames[0]);
+}
 }
