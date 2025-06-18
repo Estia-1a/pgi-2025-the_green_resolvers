@@ -377,8 +377,8 @@ void color_gray_luminance (char *filename) {
         return;
     }
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    for (int y =0; y<height; y++) {
+        for (int x =0; x<width; x++) {
             int index = (y * width + x) * channel_count;
             unsigned char R=data[index];
             unsigned char G=data[index + 1];
@@ -419,24 +419,56 @@ void color_desaturate (char *filename) {
         return;
     }
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    for (int y=0; y <height; y++) {
+        for (int x=0; x <width; x++) {
 
             int index = (y * width + x) * n;
-            unsigned char R = data [index];
+            unsigned char R = data[index];
             unsigned char G = data [index + 1];
-            unsigned char B = data [index + 2];
-            unsigned char min_val = R;
+            unsigned char B = data[index + 2];
+            unsigned char min_val =R;
 
-            if (G < min_val) min_val = G;
-            if (B < min_val) min_val = B;
+            if (G <min_val)min_val = G;
+            if (B<min_val) min_val = B;
             unsigned char max_val = R;
-            if (G > max_val) max_val = G;
-            if (B > max_val) max_val = B;
+            if (G >max_val) max_val = G;
+            if (B >max_val) max_val = B;
             unsigned char new_val = (min_val + max_val) / 2;
             data[index] = data[index + 1] = data[index + 2] = new_val;
         }
     }
 
     write_image_data ("image_out.bmp", data, width, height);
+}
+void mirror_total(char *source_path) {
+    int width, height, channels;
+    unsigned char *data;
+    if (read_image_data(source_path, &data, &width, &height, &channels)==0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+    int size = width * height * channels;
+    unsigned char *mirrored = malloc(size);
+    if (mirrored == NULL) {
+        fprintf(stderr, "Erreur : mémoire insuffisante\n");
+        free(data);
+        return;
+    }
+    for (int y = 0; y< height; y++ ) {
+        for (int x=0; x<width; x++ ) {
+            int src_index = (y * width + x) * channels;
+            int dst_x =width - 1-x;
+            int dst_y = height - 1-y;
+            int dst_index = (dst_y * width + dst_x) * channels;
+
+            for (int c = 0; c < channels; c++) {
+                mirrored[ dst_index + c] = data[src_index +c];
+            }
+        }
+    }
+    if (write_image_data("image_out.bmp", mirrored, width, height) == 0) {
+        fprintf(stderr, "Erreur : impossible d'écrire l'image symétrique.\n");
+    }
+    free(data);
+    free(mirrored);
 }

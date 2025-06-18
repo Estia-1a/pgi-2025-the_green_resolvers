@@ -20,4 +20,5 @@ void color_gray(char *source_path);
 void color_gray_luminance(char *filename);
 void color_invert(char *filename);
 void color_desaturate (char *filename);
+void mirror_total(char *source_path);
 #endif
