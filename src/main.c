@@ -93,4 +93,8 @@ int main(int argc, char **argv) {
     char comp = configuration.arguments[0][0];
     min_component(configuration.filenames[0], comp);
   }
+
+  if (strncmp(configuration.command, "stat_report", 11) == 0) {
+    stat_report(configuration.filenames[0]);
+  }
 }

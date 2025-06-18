@@ -256,3 +256,39 @@ void min_component(char *filename, char component){
     }
 
 }
+
+void stat_report(char *filename) {
+    FILE *fp = fopen("stat_report.txt", "w");
+    if (freopen("stat_report.txt", "w", stdout) == NULL) {
+        fprintf(stderr, "Erreur : impossible de rediriger stdout vers le fichier\n");
+        return;
+    }
+    max_pixel(filename);
+    printf("\n" );
+ 
+    min_pixel(filename);
+    printf("\n");
+ 
+    max_component(filename, 'R' );
+    printf("\n" );
+ 
+    max_component(filename, 'G' );
+    printf("\n" );
+ 
+    max_component(filename, 'B');
+    printf("\n");
+ 
+    min_component(filename, 'R');
+    printf("\n");
+ 
+    min_component(filename, 'G' );
+    printf("\n" );
+ 
+    min_component(filename, 'B');
+    printf("\n" );
+ 
+     
+    fflush(stdout);
+
+    freopen("CON", "w", stdout);
+}
