@@ -160,3 +160,51 @@ void max_pixel(char *source_path){
 
     printf("max_pixel(%d, %d): %d, %d, %d\n", max_x, max_y, R, G, B);
 }
+
+void max_component(char *filename, char component){
+    unsigned char *data;
+    int width;
+    int height;
+    int channels;
+    int max_value = -1;
+    int max_x = 0, max_y = 0;
+
+    if (read_image_data(filename, &data, &width, &height, &channels)==0){
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return; 
+    }
+    pixelRGB max_pixel = {0, 0, 0};
+    for (int y=0 ; y <height ;  y++){
+        for (int x=0 ;  x <width ; x++){
+            pixelRGB pixel = get_pixel(data, width, height, x, y);
+            int valeur = 0;
+            if (component == 'R') {
+                valeur = pixel.R;    
+            }
+            else if (component == 'G') {
+                valeur = pixel.G;
+            }
+            else if (component == 'B') {
+                valeur = pixel.B;
+            }
+            else {
+                fprintf(stderr, "Erreur : composante invalide (R, G ou B attendu).\n");
+                return;
+            }
+            if (valeur > max_value) {
+                max_value = valeur;
+                max_x = x;
+                max_y = y;
+                max_pixel = pixel;
+            }
+        }
+    }
+    if (component == 'R') {
+    printf("max_component R (%d, %d): %d\n", max_x, max_y, max_pixel.R);
+    } else if (component == 'G') {
+    printf("max_component G (%d, %d): %d\n", max_x, max_y, max_pixel.G);
+    } else if (component == 'B') {
+    printf("max_component B (%d, %d): %d\n", max_x, max_y, max_pixel.B);
+    }
+
+}
