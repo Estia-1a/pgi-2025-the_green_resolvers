@@ -83,7 +83,17 @@ int main(int argc, char **argv) {
 
     char comp = configuration.arguments[0][0];
     max_component(configuration.filenames[0], comp);
-}
+  }
+  
+  if (strncmp(configuration.command, "min_component", 13) == 0) {
+    if (configuration.arguments[0] == NULL) {
+        fprintf(stderr, "Erreur : composante manquante (R, G ou B attendu).\n");
+        return 1;
+    }
+
+    char comp = configuration.arguments[0][0];
+    min_component(configuration.filenames[0], comp);
+  }
 }
 
 

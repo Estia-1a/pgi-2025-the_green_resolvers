@@ -208,3 +208,51 @@ void max_component(char *filename, char component){
     }
 
 }
+
+void min_component(char *filename, char component){
+    unsigned char *data;
+    int width;
+    int height;
+    int channels;
+    int min_value = 256;
+    int min_x = 0, min_y = 0;
+
+    if (read_image_data(filename, &data, &width, &height, &channels)==0){
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return; 
+    }
+    pixelRGB min_pixel = {255, 255, 255};
+    for (int y=0 ; y <height ;  y++){
+        for (int x=0 ;  x <width ; x++){
+            pixelRGB pixel = get_pixel(data, width, height, x, y);
+            int valeur = 0;
+            if (component == 'R') {
+                valeur = pixel.R;    
+            }
+            else if (component == 'G') {
+                valeur = pixel.G;
+            }
+            else if (component == 'B') {
+                valeur = pixel.B;
+            }
+            else {
+                fprintf(stderr, "Erreur : composante invalide (R, G ou B attendu).\n");
+                return;
+            }
+            if (valeur < min_value) {
+                min_value = valeur;
+                min_x = x;
+                min_y = y;
+                min_pixel = pixel;
+            }
+        }
+    }
+    if (component == 'R') {
+    printf("min_component R (%d, %d): %d\n", min_x, min_y, min_pixel.R);
+    } else if (component == 'G') {
+    printf("min_component G (%d, %d): %d\n", min_x, min_y, min_pixel.G);
+    } else if (component == 'B') {
+    printf("min_component B (%d, %d): %d\n", min_x, min_y, min_pixel.B);
+    }
+
+}
