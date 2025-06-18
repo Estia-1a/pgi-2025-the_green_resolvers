@@ -328,3 +328,19 @@ void color_green(char *source_path) {
     write_image_data("image_out.bmp", data, width, height);
     free(data);
     }
+
+void color_blue(char *source_path) {
+    int width, height, channels;
+    unsigned char *data;
+    if (read_image_data(source_path, &data, &width, &height, &channels) ==0){
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+    for (int i =0; i < width * height * channels; i += channels) {
+        data[i] = 0;             
+        data[i + 1]=0;     
+        
+    }
+    write_image_data("image_out.bmp", data, width, height);
+    free(data);
+    }
