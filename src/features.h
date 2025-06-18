@@ -19,4 +19,5 @@ void color_blue(char *source_path);
 void color_gray(char *source_path);
 void color_gray_luminance(char *filename);
 void color_invert(char *filename);
+void color_desaturate (char *filename);
 #endif

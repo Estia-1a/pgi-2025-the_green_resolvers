@@ -410,3 +410,33 @@ void color_invert(char *filename) {
     write_image_data("image_out.bmp", data, width, height );
     free(data);
 }
+
+void color_desaturate (char *filename) {
+    int width, height, n;
+    unsigned char *data;
+    if (read_image_data (filename, &data, &width, &height, &n) == 0) {
+        fprintf (stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+            int index = (y * width + x) * n;
+            unsigned char R = data [index];
+            unsigned char G = data [index + 1];
+            unsigned char B = data [index + 2];
+            unsigned char min_val = R;
+
+            if (G < min_val) min_val = G;
+            if (B < min_val) min_val = B;
+            unsigned char max_val = R;
+            if (G > max_val) max_val = G;
+            if (B > max_val) max_val = B;
+            unsigned char new_val = (min_val + max_val) / 2;
+            data[index] = data[index + 1] = data[index + 2] = new_val;
+        }
+    }
+
+    write_image_data ("image_out.bmp", data, width, height);
+}
