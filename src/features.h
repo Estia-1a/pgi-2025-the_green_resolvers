@@ -14,4 +14,5 @@ void max_component(char *filename, char component);
 void min_component(char *filename, char component);
 void stat_report(char *filename);
 void color_red(char *source_path);
+void color_green(char *source_path);
 #endif
