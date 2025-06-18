@@ -472,3 +472,26 @@ void mirror_total(char *source_path) {
     free(data);
     free(mirrored);
 }
+void mirror_vertical( char *filename) {
+    int width, height, n;
+    unsigned char *data ;
+
+    if ( read_image_data (filename, &data, &width, &height, &n) ==0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return;
+    }
+
+    for  (int y = 0; y < height; y++) {
+        for (int x= 0; x < width / 2; x++) {
+            int left =(y * width + x) *n;
+            int right = (y * width + (width -1 -x))* n;
+            for (int i = 0; i <n; i++ ) {
+                unsigned char tmp = data [left + i];
+                data [left +i] =data [right +i];
+                data [right + i] =tmp ;
+            }
+        }
+    }
+
+    write_image_data ("image_out.bmp", data, width, height);
+}
