@@ -363,7 +363,35 @@ void color_gray(char *source_path) {
         data[i + 2]=gray;
     }
     if (write_image_data("image_out.bmp", data, width, height)==0) {
-        fprintf(stderr, "Erreur : impossible d'écrire l'image image_out.bmp\n");
+        fprintf(stderr, "Erreur : impossible d'ecrire l'image image_out.bmp\n");
     }
     free(data);
     }
+
+void color_gray_luminance (char *filename) {
+    int width, height, channel_count;
+    unsigned char *data;
+
+    if (read_image_data (filename, &data, &width, &height, &channel_count) == 0) {
+        fprintf(stderr,"Erreur : impossible de lire l'image %s\n", filename);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int index = (y * width + x) * channel_count;
+            unsigned char R=data[index];
+            unsigned char G=data[index + 1];
+            unsigned char B=data[index + 2];
+
+            unsigned char luminance = 0.21 * R + 0.72 * G + 0.07 * B;
+
+            data[index] = luminance;
+            data[index + 1] = luminance;
+            data[index + 2] = luminance;
+        }
+    }
+
+    write_image_data ("image_out.bmp", data, width, height);
+    printf ("L'image en niveaux de gris a ete sauvegarde sous 'image_out.bmp'.\n");
+}
