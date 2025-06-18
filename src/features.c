@@ -1,5 +1,6 @@
 #include <estia-image.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "features.h"
 #include "utils.h"
@@ -290,4 +291,24 @@ void stat_report(char *filename) {
     fflush(stdout);
 
     freopen("CON", "w", stdout);
+}
+
+void color_red(char *source_path) {
+    int width, height, channels;
+    unsigned char *data;
+
+    if (read_image_data(source_path, &data, &width, &height, &channels) == 0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+    for (int i = 0; i < width * height * channels; i += channels) {
+        data[i + 1] = 0;
+        data[i + 2] = 0; 
+    }
+
+    if (write_image_data("image_out.bmp", data, width, height) == 0) {
+        fprintf(stderr, "Erreur : impossible d'écrire l'image image_out.bmp\n");
+    }
+
+    free(data);
 }
