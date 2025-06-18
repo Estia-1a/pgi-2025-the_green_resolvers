@@ -395,3 +395,18 @@ void color_gray_luminance (char *filename) {
     write_image_data ("image_out.bmp", data, width, height);
     printf ("L'image en niveaux de gris a ete sauvegarde sous 'image_out.bmp'.\n");
 }
+
+void color_invert(char *filename) {
+    unsigned char *data;
+    int width, height, channels;
+    if (read_image_data(filename, &data, &width, &height, &channels) ==0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return ;
+    }
+
+    for (int i = 0; i < width * height * channels; i++) {
+        data[i] = 255 - data[i] ; 
+    }
+    write_image_data("image_out.bmp", data, width, height );
+    free(data);
+}

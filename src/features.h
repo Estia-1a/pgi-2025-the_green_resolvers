@@ -18,4 +18,5 @@ void color_green(char *source_path);
 void color_blue(char *source_path);
 void color_gray(char *source_path);
 void color_gray_luminance(char *filename);
+void color_invert(char *filename);
 #endif
