@@ -531,3 +531,63 @@ void mirror_horizontal(char *filename) {
     free(data);
     free(mirrored);
 }
+
+void rotate_cw(char *filename) {
+    unsigned char *data;
+    int width, height, channels ;
+    if (read_image_data(filename, &data, &width, &height, &channels)== 0){
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return ;
+    }
+    unsigned char *rotated = malloc(width *height *channels) ;
+    if (!rotated) {
+        fprintf(stderr, "Erreur :mémoire insuffisante.\n" );
+        free(data);
+        return;
+    }
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++){
+            int src_index = (y *width + x)* channels;
+            int dst_x =height -1 - y;
+            int dst_y= x;
+            int dst_index =(dst_y *height+ dst_x)* channels ;
+
+            for(int c = 0; c < channels; c++){
+                rotated[dst_index + c] =data[src_index +c] ;
+            }
+        }
+    }
+    write_image_data("image_out.bmp", rotated, height, width) ;
+    free(data);
+    free(rotated) ;
+}
+
+void rotate_ccw(char *filename){
+    unsigned char *data;
+    int width, height, channels;
+    if (read_image_data(filename, &data, &width, &height, &channels) ==0){
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
+        return;
+    }
+
+    unsigned char *rotated = malloc(width * height * channels);
+    if (!rotated) {
+        fprintf(stderr, "Erreur : mémoire insuffisante.\n");
+        free(data);
+        return;
+    }
+    for (int y =0; y < height ; y++) {
+        for (int x = 0; x < width; x++){
+            int src_index= (y *width+ x) *channels ;
+            int dst_x= y ;
+            int dst_y=width - 1- x;
+            int dst_index = (dst_y * height + dst_x) * channels ;
+            for (int c = 0; c < channels; c++){
+                rotated[ dst_index+ c] =data[src_index + c];
+            }
+        }
+    }
+    write_image_data("image_out.bmp", rotated, height,width) ;
+    free(data) ;
+    free(rotated);
+}

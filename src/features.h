@@ -23,4 +23,6 @@ void color_desaturate (char *filename);
 void mirror_total(char *source_path);
 void mirror_vertical(char *filename);
 void mirror_horizontal(char *filename);
+void rotate_cw(char *filename);
+void rotate_ccw(char *filename);
 #endif
