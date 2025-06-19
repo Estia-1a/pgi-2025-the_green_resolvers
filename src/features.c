@@ -38,9 +38,9 @@ void first_pixel(char *source_path){
     else{
         fprintf(stderr,"Erreur : impossible de lire l'image %s \n",source_path);
     }
-
-    
 }
+
+
 void tenth_pixel(char *source_path){
     unsigned char R, G, B;
     int width, height, channel_count;
@@ -117,7 +117,7 @@ void min_pixel(char *filename){
             } 
         }
     }
-    printf("min_pixel (%d, %d): %d, %d, %d\n",min_x, min_y, min_pixel.R, min_pixel.G, min_pixel.B);
+    printf("min_pixel (%d, %d): %d, %d, %d\n",min_x,min_y,min_pixel.R, min_pixel.G,min_pixel.B);
 }
 
 
@@ -127,12 +127,10 @@ void min_pixel(char *filename){
 void max_pixel(char *source_path){
     unsigned char *data = NULL;
     int width, height, channels;
-
     if (read_image_data(source_path, &data, &width, &height, &channels) == 0){
         fprintf(stderr, "Erreur de lecture de l'image: %s\n", source_path );
         return;
     }
-
     int max_sum = -1;
     int max_x = 0, max_y= 0;
     unsigned char R=0, G=0, B=0;
@@ -145,7 +143,6 @@ void max_pixel(char *source_path){
             unsigned char b = data [pixel_index + 2];
 
             int sum= r + g + b;
-
             if( sum > max_sum){
                 max_sum = sum;
                 max_x = x;
@@ -153,23 +150,16 @@ void max_pixel(char *source_path){
                 R = r;
                 G = g;
                 B = b;
-
-
             }
         }
     }
-
     printf("max_pixel(%d, %d): %d, %d, %d\n", max_x, max_y, R, G, B);
 }
 
 void max_component(char *filename, char component){
     unsigned char *data;
-    int width;
-    int height;
-    int channels;
-    int max_value = -1;
-    int max_x = 0, max_y = 0;
-
+    int width, height, channels;
+    int max_value = -1, max_x =0, max_y = 0;
     if (read_image_data(filename, &data, &width, &height, &channels)==0){
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
         return; 
@@ -207,17 +197,12 @@ void max_component(char *filename, char component){
     } else if (component == 'B') {
     printf("max_component B (%d, %d): %d\n", max_x, max_y, max_pixel.B);
     }
-
 }
 
 void min_component(char *filename, char component){
     unsigned char *data;
-    int width;
-    int height;
-    int channels;
-    int min_value = 256;
-    int min_x = 0, min_y = 0;
-
+    int width, height, channels;
+    int min_value = 256, min_x=0, min_y = 0;
     if (read_image_data(filename, &data, &width, &height, &channels)==0){
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", filename);
         return; 
@@ -255,7 +240,6 @@ void min_component(char *filename, char component){
     } else if (component == 'B') {
     printf("min_component B (%d, %d): %d\n", min_x, min_y, min_pixel.B);
     }
-
 }
 
 void stat_report(char *filename) {
@@ -366,7 +350,7 @@ void color_gray(char *source_path) {
         fprintf(stderr, "Erreur : impossible d'ecrire l'image image_out.bmp\n");
     }
     free(data);
-    }
+}
 
 void color_gray_luminance (char *filename) {
     int width, height, channel_count;
