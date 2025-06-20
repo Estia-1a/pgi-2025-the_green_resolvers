@@ -1,0 +1,4 @@
+/home/runner/work/pgi-2025-the_green_resolvers/pgi-2025-the_green_resolvers/src/features.c: In function ‘stat_report’:
+/home/runner/work/pgi-2025-the_green_resolvers/pgi-2025-the_green_resolvers/src/features.c:277:5: warning: ignoring return value of ‘freopen’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  277 |     freopen("CON", "w", stdout);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
